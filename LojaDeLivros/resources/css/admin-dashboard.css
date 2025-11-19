@@ -1,0 +1,261 @@
+/* Admin Dashboard Bookstore Theme */
+
+:root {
+    --bookstore-primary: #8b4513;
+    --bookstore-secondary: #d2691e;
+    --bookstore-accent: #f4a460;
+    --bookstore-dark: #5d2e0f;
+    --bookstore-light: #faf3e0;
+    --bookstore-success: #22c55e;
+    --bookstore-warning: #f59e0b;
+    --bookstore-danger: #ef4444;
+}
+
+/* Dashboard Header */
+.admin-dashboard-header {
+    background: linear-gradient(135deg, var(--bookstore-primary) 0%, var(--bookstore-secondary) 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Stats Cards */
+.stat-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid var(--bookstore-primary);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.stat-card-books {
+    background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+    color: white;
+}
+
+.stat-card-categories {
+    background: linear-gradient(135deg, #d2691e 0%, #ff8c42 100%);
+    color: white;
+}
+
+.stat-card-users {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: white;
+}
+
+.stat-card-revenue {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+}
+
+.stat-card-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1f2937;
+    line-height: 1;
+}
+
+/* Action Cards */
+.action-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-top: 3px solid var(--bookstore-primary);
+    transition: all 0.3s ease;
+}
+
+.action-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.action-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.action-card-icon-wrapper {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--bookstore-primary) 0%, var(--bookstore-secondary) 100%);
+    color: white;
+}
+
+.action-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.action-card-description {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Buttons */
+.btn-bookstore {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-bookstore-primary {
+    background: linear-gradient(135deg, var(--bookstore-primary) 0%, var(--bookstore-secondary) 100%);
+    color: white;
+}
+
+.btn-bookstore-primary:hover {
+    background: linear-gradient(135deg, var(--bookstore-dark) 0%, var(--bookstore-primary) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+}
+
+.btn-bookstore-secondary {
+    background: white;
+    color: var(--bookstore-primary);
+    border: 2px solid var(--bookstore-primary);
+}
+
+.btn-bookstore-secondary:hover {
+    background: var(--bookstore-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+}
+
+.btn-bookstore-success {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: white;
+}
+
+.btn-bookstore-success:hover {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+/* Quick Actions Grid */
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* Recent Activity Card */
+.recent-activity {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recent-activity-header {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--bookstore-accent);
+}
+
+.activity-item {
+    padding: 0.75rem;
+    border-left: 3px solid var(--bookstore-accent);
+    background: var(--bookstore-light);
+    margin-bottom: 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.activity-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-dashboard-header {
+        padding: 1.5rem;
+    }
+
+    .stat-card-value {
+        font-size: 1.5rem;
+    }
+
+    .quick-actions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Book Icon Animation */
+@keyframes bookFlip {
+    0%, 100% { transform: rotateY(0deg); }
+    50% { transform: rotateY(180deg); }
+}
+
+.book-icon-animated:hover {
+    animation: bookFlip 1s ease-in-out;
+}
+
+/* Welcome Message */
+.welcome-banner {
+    background: linear-gradient(135deg, var(--bookstore-light) 0%, #ffffff 100%);
+    border-left: 4px solid var(--bookstore-primary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.welcome-banner h3 {
+    color: var(--bookstore-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-banner p {
+    color: #6b7280;
+    font-size: 1rem;
+}

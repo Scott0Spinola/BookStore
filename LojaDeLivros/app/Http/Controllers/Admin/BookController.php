@@ -29,6 +29,7 @@ class BookController extends Controller
         $path = $request->file('image')->store('public/images');
         $url = Storage::url($path);
         $validated['image'] = $url;
+        $validated['owner_id'] = auth()->id();
 
         Book::create($validated);
 
