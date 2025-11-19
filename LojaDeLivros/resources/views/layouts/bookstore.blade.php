@@ -73,6 +73,78 @@
             opacity: 0.8;
         }
 
+        /* User Dropdown */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-button {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            transition: opacity 0.3s ease;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .user-button:hover {
+            opacity: 0.8;
+        }
+
+        .user-button::after {
+            content: ' ▼';
+            font-size: 0.7rem;
+            margin-left: 0.3rem;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-content a, .dropdown-content button {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .dropdown-content a:hover, .dropdown-content button:hover {
+            background-color: #F3F4F6;
+        }
+
+        .dropdown-content form {
+            margin: 0;
+        }
+
+        .dropdown-content a:first-child {
+            border-bottom: 1px solid #E5E7EB;
+        }
+
         /* Main Content */
         .main-content {
             flex: 1;
@@ -142,14 +214,16 @@
                     <li><a href="/books">Books</a></li>
                     <li><a href="/categories">Categories</a></li>
                     @auth
-                        <li>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault(); this.closest('form').submit();">
-                                    Logout
-                                </a>
-                            </form>
+                        <li><a href="{{ route('sales.index') }}">My Purchases</a></li>
+                        <li class="user-dropdown">
+                            <button class="user-button" onclick="toggleDropdown(event)">{{ Auth::user()->name }}</button>
+                            <div class="dropdown-content" id="userDropdown">
+                                <a href="{{ route('profile.edit') }}">Edit Profile</a>
+                                <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
+                                    @csrf
+                                    <button type="submit">Logout</button>
+                                </form>
+                            </div>
                         </li>
                     @else
                         <li><a href="{{ route('login') }}">Login</a></li>
@@ -188,5 +262,23 @@
     </footer>
 
     @stack('scripts')
+    
+    <script>
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.user-button')) {
+                const dropdown = document.getElementById('userDropdown');
+                if (dropdown && dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                }
+            }
+        }
+    </script>
 </body>
 </html>
