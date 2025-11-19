@@ -14,8 +14,10 @@
 @push('styles')
 <style>
 .book-card img {
-    height: 200px;
+    width: 100%;
+    height: 300px;
     object-fit: cover;
+    object-position: center;
 }
 .book-card .card-body {
     display: flex;

@@ -69,9 +69,11 @@
 
 @push('styles')
 <style>
-.img-fluid {
-    height: 100%;
+.col-md-4 .img-fluid {
+    width: 100%;
+    height: 400px;
     object-fit: cover;
+    object-position: center;
 }
 .row {
     display: flex;
