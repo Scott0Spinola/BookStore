@@ -20,6 +20,21 @@ class Book extends Model
         'owner_id',
     ];
 
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->image) {
+            // Check if it's already a full URL
+            if (filter_var($this->image, FILTER_VALIDATE_URL)) {
+                return $this->image;
+            }
+            // Otherwise, assume it's stored in storage/app/public
+            return asset('storage/' . $this->image);
+        }
+        return null;
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

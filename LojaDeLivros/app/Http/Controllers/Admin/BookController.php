@@ -26,9 +26,9 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
         $validated = $request->validated();
-        $path = $request->file('image')->store('public/images');
-        $url = Storage::url($path);
-        $validated['image'] = $url;
+        // Store file and get path relative to storage/app/public
+        $path = $request->file('image')->store('images', 'public');
+        $validated['image'] = $path;
         $validated['owner_id'] = auth()->id();
 
         Book::create($validated);
@@ -47,9 +47,13 @@ class BookController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('image')) {
-            Storage::delete(str_replace('/storage', 'public', $book->image));
-            $path = $request->file('image')->store('public/images');
-            $validated['image'] = Storage::url($path);
+            // Delete old image if it exists
+            if ($book->image) {
+                Storage::disk('public')->delete($book->image);
+            }
+            // Store new file and get path relative to storage/app/public
+            $path = $request->file('image')->store('images', 'public');
+            $validated['image'] = $path;
         }
 
         $book->update($validated);
@@ -59,7 +63,10 @@ class BookController extends Controller
 
     public function destroy(Book $book)
     {
-        Storage::delete(str_replace('/storage', 'public', $book->image));
+        // Delete image if it exists
+        if ($book->image) {
+            Storage::disk('public')->delete($book->image);
+        }
         $book->delete();
         return redirect()->route('admin.books.index')->with('success', 'Book deleted successfully.');
     }
