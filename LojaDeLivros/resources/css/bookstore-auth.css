@@ -1,0 +1,15 @@
+.bg-bookstore-orange {
+    background-color: #f97316; /* Adjust with your exact orange */
+}
+
+.text-bookstore-orange {
+    color: #f97316; /* Adjust with your exact orange */
+}
+
+.border-bookstore-orange {
+    border-color: #f97316; /* Adjust with your exact orange */
+}
+
+.hover\:bg-bookstore-orange-dark:hover {
+    background-color: #ea580c; /* A darker shade for hover */
+}
