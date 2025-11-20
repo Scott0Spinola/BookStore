@@ -1,25 +1,17 @@
 @props(['book'])
 
 <div class="book-card">
-    @php
-        $discount = rand(5, 15); // Random discount for demo
-        $originalPrice = $book->price;
-        $discountedPrice = $originalPrice * (1 - $discount/100);
-    @endphp
-    
     <div class="book-image-container">
         <a href="{{ route('books.show', $book) }}">
             <img src="{{ $book->image_url ?? 'https://via.placeholder.com/200x300/FF6B35/FFFFFF?text=' . urlencode($book->title) }}" alt="{{ $book->title }}">
         </a>
-        <span class="discount-badge">{{ $discount }}%</span>
     </div>
     
     <div class="book-info">
         <span class="book-badge">FREE SHIPPING</span>
         
-        <div class="book-prices">
-            <span class="original-price">${{ number_format($originalPrice, 2) }}</span>
-            <span class="discounted-price">${{ number_format($discountedPrice, 2) }}</span>
+        <div class="book-price">
+            <span class="price">${{ number_format($book->price, 2) }}</span>
         </div>
         
         <h3 class="book-title">
@@ -79,18 +71,7 @@
     transform: scale(1.05);
 }
 
-.discount-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: var(--discount-red);
-    color: var(--white);
-    padding: 0.4rem 0.6rem;
-    border-radius: 50%;
-    font-weight: bold;
-    font-size: 0.9rem;
-    z-index: 1;
-}
+
 
 .book-info {
     padding: 1rem;
@@ -111,21 +92,12 @@
     align-self: flex-start;
 }
 
-.book-prices {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+.book-price {
     margin-top: 0.25rem;
 }
 
-.original-price {
-    text-decoration: line-through;
-    color: var(--text-gray);
-    font-size: 0.9rem;
-}
-
-.discounted-price {
-    color: var(--discount-red);
+.price {
+    color: var(--primary-orange);
     font-weight: bold;
     font-size: 1.25rem;
 }

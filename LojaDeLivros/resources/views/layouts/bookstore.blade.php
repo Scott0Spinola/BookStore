@@ -164,18 +164,7 @@
             gap: 0.5rem;
         }
 
-        .menu-toggle {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            color: var(--text-dark);
-            font-weight: 500;
-        }
+
 
         .nav-links {
             list-style: none;
@@ -402,9 +391,6 @@
                         <i class="fas fa-user"></i>
                     </a>
                 @endauth
-                <a href="#" title="Wishlist">
-                    <i class="fas fa-heart"></i>
-                </a>
                 <a href="#" title="Cart">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
@@ -415,10 +401,6 @@
     <!-- Navigation Menu -->
     <nav class="nav-menu">
         <div class="container">
-            <button class="menu-toggle">
-                <i class="fas fa-bars"></i>
-                <span>Menu</span>
-            </button>
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
                 <li><a href="/books">New Releases</a></li>

@@ -3,9 +3,31 @@
 @section('title', 'All Books')
 
 @section('content')
+    <!-- Random Book Spotlight -->
+    @if($randomBook)
+    <div class="random-book-spotlight">
+        <div class="spotlight-content">
+            <div class="spotlight-image">
+                <img src="{{ $randomBook->image_url ?? 'https://via.placeholder.com/200x300/FF6B35/FFFFFF?text=' . urlencode($randomBook->title) }}" alt="{{ $randomBook->title }}">
+            </div>
+            <div class="spotlight-info">
+                <h3>Book of the Day</h3>
+                <h2>{{ $randomBook->title }}</h2>
+                <p class="spotlight-author">by {{ $randomBook->author }}</p>
+                @if($randomBook->category)
+                    <span class="spotlight-category">{{ $randomBook->category->name }}</span>
+                @endif
+                <p class="spotlight-description">{{ Str::limit($randomBook->description ?? 'Discover this amazing book in our collection.', 150) }}</p>
+                <div class="spotlight-price">${{ number_format($randomBook->price, 2) }}</div>
+                <a href="{{ route('books.show', $randomBook) }}" class="spotlight-button">View Details</a>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <!-- Section Header -->
     <div class="section-header">
-        <h2>New Releases You Can't Miss</h2>
+        <h2>Featured Books</h2>
         <a href="#">VIEW ALL +</a>
     </div>
 
@@ -48,6 +70,129 @@
 
 @push('styles')
 <style>
+    /* Random Book Spotlight */
+    .random-book-spotlight {
+        background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+        border-radius: 12px;
+        margin-bottom: 3rem;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(232, 93, 23, 0.3);
+    }
+
+    .spotlight-content {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem;
+        color: var(--white);
+    }
+
+    .spotlight-image {
+        flex-shrink: 0;
+        width: 180px;
+        height: 270px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .spotlight-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .spotlight-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .spotlight-info h3 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+        opacity: 0.9;
+    }
+
+    .spotlight-info h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+    }
+
+    .spotlight-author {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        opacity: 0.9;
+    }
+
+    .spotlight-category {
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .spotlight-description {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        opacity: 0.95;
+    }
+
+    .spotlight-price {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+    }
+
+    .spotlight-button {
+        background-color: var(--white);
+        color: var(--primary-orange);
+        padding: 0.75rem 2rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .spotlight-button:hover {
+        background-color: #f8f8f8;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Responsive design for spotlight */
+    @media (max-width: 768px) {
+        .spotlight-content {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .spotlight-image {
+            width: 150px;
+            height: 225px;
+            margin: 0 auto;
+        }
+
+        .spotlight-info h2 {
+            font-size: 1.5rem;
+        }
+
+        .spotlight-price {
+            font-size: 1.5rem;
+        }
+    }
+
     .filter-bar {
         background-color: var(--white);
         padding: 1.5rem;
