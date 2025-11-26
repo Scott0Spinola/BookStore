@@ -18,9 +18,9 @@ class SaleSeeder extends Seeder
         $users = User::all();
         $books = Book::all();
 
-        // Create random purchases for users
+     
         $users->each(function ($user) use ($books) {
-            // Each user purchases between 1 and 5 random books
+           
             $purchaseCount = rand(1, 5);
             $selectedBooks = $books->random(min($purchaseCount, $books->count()));
 
