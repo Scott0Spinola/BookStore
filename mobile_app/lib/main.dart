@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'providers/book_provider.dart';
+import 'models/book.dart';
+import 'screens/book_details_screen.dart';
 import 'screens/home_screen.dart';
 
 void main() {
@@ -12,18 +12,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => BookProvider()),
-      ],
-      child: MaterialApp(
-        title: 'BookStore App',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          useMaterial3: true,
-        ),
-        home: const HomeScreen(),
+    return MaterialApp(
+      title: 'BookStore App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
       ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/details') {
+          final book = settings.arguments as Book;
+          return MaterialPageRoute(
+            builder: (context) => BookDetailsScreen(
+              bookId: book.id,
+              initialTitle: book.title,
+            ),
+          );
+        }
+        return null;
+      },
     );
   }
 }

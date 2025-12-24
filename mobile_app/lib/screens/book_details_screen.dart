@@ -1,70 +1,68 @@
 import 'package:flutter/material.dart';
+import '../globals.dart';
 import '../models/book.dart';
+import '../widgets/book_details_body.dart';
+import '../widgets/loading_widget.dart';
 
-class BookDetailsScreen extends StatelessWidget {
-  final Book book;
+class BookDetailsScreen extends StatefulWidget {
+  final int bookId;
+  final String? initialTitle;
 
-  const BookDetailsScreen({super.key, required this.book});
+  const BookDetailsScreen({
+    super.key,
+    required this.bookId,
+    this.initialTitle,
+  });
+
+  @override
+  State<BookDetailsScreen> createState() => _BookDetailsScreenState();
+}
+
+class _BookDetailsScreenState extends State<BookDetailsScreen> {
+  late Future<Book> _bookFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _bookFuture = Globals.apiService.getBookDetails(widget.bookId);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(book.title),
+        title: Text(widget.initialTitle ?? 'Book Details'),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (book.imageUrl != null)
-              Center(
-                child: Image.network(
-                  book.imageUrl!,
-                  height: 200,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                      const Icon(Icons.book, size: 100),
-                ),
-              ),
-            const SizedBox(height: 16),
-            Text(
-              book.title,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'by ${book.author}',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Colors.grey[600],
+      body: FutureBuilder<Book>(
+        future: _bookFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const LoadingWidget(message: 'Loading details...');
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Error: ${snapshot.error}'),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _bookFuture = Globals.apiService.getBookDetails(widget.bookId);
+                      });
+                    },
+                    child: const Text('Retry'),
                   ),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Chip(
-                  label: Text(book.category?.name ?? 'Uncategorized'),
-                  backgroundColor: Colors.blue[100],
-                ),
-                const Spacer(),
-                Text(
-                  '\$${book.price.toStringAsFixed(2)}',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Description',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text(book.description),
-          ],
-        ),
+                ],
+              ),
+            );
+          } else if (!snapshot.hasData) {
+            return const Center(child: Text('Book not found.'));
+          }
+
+          final book = snapshot.data!;
+          return BookDetailsBody(book: book);
+        },
       ),
     );
   }
