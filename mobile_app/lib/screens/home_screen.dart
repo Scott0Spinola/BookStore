@@ -3,7 +3,6 @@ import '../globals.dart';
 import '../models/book.dart';
 import '../widgets/book_card.dart';
 import '../widgets/loading_widget.dart';
-import 'book_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
