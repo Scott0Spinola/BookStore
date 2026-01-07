@@ -1,4 +1,5 @@
 import 'category.dart';
+import '../services/api_service.dart';
 
 class Book {
   final int id;
@@ -26,7 +27,7 @@ class Book {
       author: json['author'],
       description: json['description'] ?? '',
       price: double.parse(json['price'].toString()),
-      imageUrl: json['image_url'],
+      imageUrl: ApiService.fixImageUrl(json['image_url']),
       category: json['category'] != null ? Category.fromJson(json['category']) : null,
     );
   }

@@ -29,8 +29,8 @@ class Book extends Model
             if (filter_var($this->image, FILTER_VALIDATE_URL)) {
                 return $this->image;
             }
-            // Otherwise, assume it's stored in storage/app/public
-            return asset('storage/' . $this->image);
+            // Otherwise, serve it through the API so web clients receive CORS headers.
+            return url('/api/images/' . ltrim($this->image, '/'));
         }
         return null;
     }

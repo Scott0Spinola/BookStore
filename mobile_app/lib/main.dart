@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
-      initialRoute: '/',
+      initialRoute: '/objects',
       routes: {
-        '/': (context) => const HomeScreen(),
+        '/objects': (context) => const HomeScreen(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/details') {
